@@ -30,7 +30,7 @@ class API implements APIInterface
             'timezone'         => 'America/New_York',
             'api_key'          => 'DEMO-KEY',
             'endpoint'         => 'https://api.nasa.gov/planetary/apod',
-            'start_date'       => '1995-06-16',
+            'start_date'       => '1996-06-16',
             'thumbnail_width'  => 300,
             'thumbnail_height' => 200,
         ], $options);
