@@ -139,11 +139,16 @@ class API implements APIInterface
         file_put_contents($paths['json_path'], (string) $response->getBody());
 
         if ('image' === $picture['media_type']) {
-            $image = ImageManagerStatic::make($picture['url']);
-            $image->fit($this->options['thumbnail_width'], $this->options['thumbnail_height']);
-            $image->save($paths['thumbnail_path']);
+            try {
+                $image = ImageManagerStatic::make($picture['url']);
+                $image->fit($this->options['thumbnail_width'], $this->options['thumbnail_height']);
+                $image->save($paths['thumbnail_path']);
 
-            $picture['thumbnail_url'] = $paths['thumbnail_url'];
+                $picture['thumbnail_url'] = $paths['thumbnail_url'];
+            } catch (\Exception $exception) {
+                unlink($paths['json_path']);
+                throw $exception;
+            }
         }
 
         return $picture;
