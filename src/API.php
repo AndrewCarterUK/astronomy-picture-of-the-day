@@ -27,6 +27,7 @@ class API implements APIInterface
     {
         $this->client = $client;
 
+        // Default options
         $this->options = array_replace([
             'timezone'         => 'America/New_York',
             'api_key'          => 'DEMO-KEY',
@@ -75,11 +76,14 @@ class API implements APIInterface
     /**
      * {@inheritDoc}
      */
-    public function updateStore(callable $newPicture = null, callable $errorPicture = null)
+    public function updateStore($limit = 1, callable $newPicture = null, callable $errorPicture = null)
     {
         $dateTime       = $this->getDateTime();
         $oneDayInterval = new \DateInterval('P1D');
 
+        $count = 0;
+
+        // Loop until we go beyond the start date of the API or the limit is defined and reached
         do {
             $date = $dateTime->format('Y-m-d');
 
@@ -97,6 +101,13 @@ class API implements APIInterface
                 }
             }
 
+            $count++;
+
+            if (false !== $limit && $count > $limit) {
+                break;
+            }
+
+            // Subtract a day from the date time object
             $dateTime->sub($oneDayInterval);
         } while (strcmp($this->options['start_date'], $date) < 1);
     }
@@ -106,6 +117,7 @@ class API implements APIInterface
      */
     public function clearStore()
     {
+        // unlink all the json and jpg files in the store
         array_map('unlink', glob($this->options['store_path'].'*.{json,jpg}', GLOB_BRACE));
     }
 
@@ -120,6 +132,7 @@ class API implements APIInterface
      */
     private function retrievePicture($date)
     {
+        // Make a request to the API endpoint
         $response = $this->client->request('GET', $this->options['endpoint'], [
             'query' => [
                 'api_key'      => $this->options['api_key'],
