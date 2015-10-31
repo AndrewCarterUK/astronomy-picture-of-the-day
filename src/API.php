@@ -8,7 +8,7 @@ use Intervention\Image\ImageManagerStatic;
 class API implements APIInterface
 {
     /**
-     * @var ClientInterface 
+     * @var ClientInterface
      */
     private $client;
 
@@ -18,7 +18,8 @@ class API implements APIInterface
     private $options;
 
     /**
-     * 
+     * Constructor.
+     *
      * @param ClientInterface $client
      * @param array $options
      */
@@ -110,11 +111,11 @@ class API implements APIInterface
 
     /**
      * Retrieve a picture from the API
-     * 
+     *
      * @param string $date
-     * 
+     *
      * @return array
-     * 
+     *
      * @throws \RuntimeException On failing to retrieve picture
      */
     private function retrievePicture($date)
@@ -156,7 +157,7 @@ class API implements APIInterface
 
     /**
      * Get stored picture
-     * 
+     *
      * @return array
      */
     private function getStoredPicture($date)
@@ -173,7 +174,7 @@ class API implements APIInterface
 
     /**
      * Is a picture stored?
-     * 
+     *
      * @return bool
      */
     private function isPictureStored($date)
@@ -184,7 +185,7 @@ class API implements APIInterface
 
     /**
      * Retrieve the paths for a picture
-     * 
+     *
      * @return array
      */
     private function getPicturePaths($date)
@@ -202,7 +203,7 @@ class API implements APIInterface
 
     /**
      * Retrieve the current date time object with the timezone set
-     * 
+     *
      * @return \DateTime
      */
     private function getDateTime()
