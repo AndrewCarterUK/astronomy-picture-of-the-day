@@ -15,8 +15,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "AndrewCarterUK\\APOD\\": "src/",
-            "AndrewCarterUK\\APOD\\Test\\": "test/"
+            "AndrewCarterUK\\APOD\\": "src/"
         }
     }
 }
